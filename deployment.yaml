@@ -1,33 +1,36 @@
+--- 
 apiVersion: apps/v1
 kind: Deployment
-metadata:
-  name: myapp-deployment
-  labels:
+metadata: 
+  labels: 
     app: myapp
-spec:
+  name: myapp-deployment
+spec: 
   replicas: 3
-  selector:
-    matchLabels:
+  selector: 
+    matchLabels: 
       app: myapp
-  template:
-    metadata:
-      labels:
+  template: 
+    metadata: 
+      labels: 
         app: myapp
-    spec:
-      containers:
-      - name: myapp
-        image: lukaszgolabek/task001:latest
----
+    spec: 
+      containers: 
+        - 
+          image: "lukaszgolabek/task001:latest"
+          name: myapp
+--- 
 apiVersion: v1
 kind: Service
-metadata:
+metadata: 
   name: my-service-node-port
-spec:
-  selector:
+spec: 
+  ports: 
+    - 
+      nodePort: 30000
+      port: 5000
+      protocol: TCP
+      targetPort: 5000
+  selector: 
     app: myapp
-  ports:
-  - protocol: TCP
-    port: 5000
-    targetPort: 5000
-    nodePort: 30000
   type: NodePort
