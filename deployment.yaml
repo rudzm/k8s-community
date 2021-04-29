@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: rudzmic1/wkontenerach:0.1
+        image: lukaszgolabek/task001:latest
 ---
 apiVersion: v1
 kind: Service
