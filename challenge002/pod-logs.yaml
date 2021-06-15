@@ -8,9 +8,11 @@ metadata:
 spec:
   containers:
   - image: busybox:latest
-    command: ["echo This is message from log system"]
-    name: log-pod
-    resources: {}
+    command: ["echo Hello, I'm the first container nice to meet you."]
+    name: first
+  - image: busybox:latest
+    command: ["echo Hello, I'm the younger container my name is seconde"]
+    name: seconde
   dnsPolicy: ClusterFirst
   restartPolicy: OnFailure
-status: {}
+

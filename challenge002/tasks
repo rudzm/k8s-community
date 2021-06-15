@@ -1,0 +1,74 @@
+Pod i YAML. 
+Obiekty w K8s możemy tworzyć za pomocą polecenia kubectl oraz dzięki plikom YAML
+w których opisujemy co chcemy uzyskać a poprzez kubectl inicjujemy je w klastrze.
+
+Większość plików YAML w Kubernetesie ma struktórę podobną do podanej poniżesz:
+
+apiVersion: v1, apps/v1, batch/v1, policy/v1 #podajemy wersję api jedną z dostępnych wyminiono tu tylko kilka
+kind: Pod, Service, Deployment, Job, PodSecurityPolicy # rodzaj obiektu jaki chcemy stworzyć
+metadata: #w tej sekcji możemy nadać nazwę obeitu oraz etykiety
+  labels:
+    run: my-pod
+  name: my-pod
+spec: # w tej sekcji podajemy specyfikację naszego obiektu dla obiektu typu Pod będzie to opis kontenera
+  containers:
+  - image: nginx
+    name: my-pod
+
+Czym jest pod? Pod jest najmniejszą jednostką znaną w kubernetesie. 
+Pod jest obiektem abstrakcyjnym w którym uruchamiamy kontenery.
+
+
+Zadanie 1.
+Na dysku w pliku pod.yaml znajduje się gotowy plik YAML.
+Sprawdz jego zawartość poleceniem cat ścieżka_do_pliku/nazwa_pliku oraz odpowiedź na kilka pytań:
+- Jaka wartość znajduje się w apiVersion?
+- Jaka wartość znajduje się w kind?
+- Jaka jest nazwa tego obiektu?
+- Jaka jest nazwa obrazu to stworzenia kontenera?
+
+Zadanie 2.
+Do komunikacji z naszym klustrem kubernetesa możemy używać różnych narzędzi lecz najbardziej popularnym jest kubectl.
+Dzisiaj nauczymy się paru podstawowych funkcji jakie nam oferuję a zaczniemy od stworzenia Pod'a z poprzedniego zadania. 
+Aby to zrobić potrzebujemy wykorzystać kubectl apply -f ścieżka_do_pliku
+- skrypt sprawdza czy stworzenie poda się powiodło powinien walidować nazwę poda i imag
+
+Zadanie 3. 
+Gdy nasz nowy obiekt typu Pod został stworzony chcielibyśmy zobaczyć że faktycznie istnieje.
+Aby tego dokonać możemy użyć polecenia:
+kubectl get rodzaj_obiektu
+- ile jest obecnie podów
+
+Zadanie 4a.
+Zdeplojuj kolejnego poda którego plik YAML znajduje się pod-describe.yaml
+- sprawdzenie czy pod został zdeployowany i czy działa poprzez skrypt
+
+Zadanie 4b.
+Pody jak wszystkie inne obiekty w K8s możemy podejrzeć szczegółowo używając polecenia 
+kubectl describe nazwa_poda
+- podaj nazwę obrazu contenera
+
+Zadanie 5a.
+Zdeplojuj kolejnego poda którego plik YAML znajduje się pod-log.yaml
+- sprawdzenie czy pod został zdeployowany i czy działa poprzez skrypt
+Zadanie 5b
+Pody jak już dobrze wiesz zawierają w sobie jeden albo i więcej kontenerów by odczytać logi z 
+konkretnego poda i kontenera wykorzystujemy do tego polecenie kubectl logs nazwa_poda -c nazwa_kontenera
+
+Zadanie 6a.
+Zdeplojuj kolejnego poda którego plik YAML znajduje się pod-exec.yaml
+- sprawdzenie czy pod został zdeployowany i czy działa poprzez skrypt
+
+Zadanie 6b.
+W specyficzych przypadkach czasem musimy się zalogować do kontenera w podzie celem sprawdzenia np. konfiguracji albo jakiegoś pliku. 
+Dokonać tego możemy za pomocą polecenia kubectl exec -it nazwa_poda -- /bin/sh
+- podaj wartość pliku message.txt możesz go podejrzeć za pomocą polecenia cat
+
+Zadanie 7a. 
+Czasem potrzebujemy na potrzeby szybkiego testu stworzyć Pod z konkretnym kontenerem lecz nie zawsze musimy do tego używać pliku YAML.
+Można to również zrobbić za pomocą polecenia kubectl run 
+- stwórz poda o podanych wartościach za pomocą kubectl run
+
+Zadanie 7b.
+Podejrzyj logi poda i podąrzaj za wskazuwkami.
+ 
